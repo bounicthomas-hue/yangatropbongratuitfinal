@@ -453,8 +453,12 @@ def use_drink(qr_id):
 def appGen():
     return render_template("qrAppGen.html")
 
-if __name__ == "__main__":
 import os
-port = int(os.environ.get("PORT", 5000))
-app.run(host='0.0.0.0', port=port)
+
+if __name__ == "__main__":
+    # Récupère le port depuis les variables d'environnement, sinon utilise 5000 par défaut
+    port = int(os.environ.get("PORT", 5000))
+    
+    # Lance l'application sur toutes les interfaces réseaux (0.0.0.0)
+    app.run(host='0.0.0.0', port=port)
 
