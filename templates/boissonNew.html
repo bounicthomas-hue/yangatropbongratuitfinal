@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Boisson</title>
+    <link rel="stylesheet" type="text/css" href="../static/boissons.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='apple-touch-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='apple-touch-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ url_for('static', filename='apple-touch-icon-167x167.png') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-bar">
+        <a class="brand" href="/">
+          <span>Basic-Fit</span>
+          <small>QR Boisson</small>
+        </a>
+        <div class="nav-links">
+          <a href="/">Accueil</a>
+          <a href="/history">Historique</a>
+          <a href="/get_boisson_image">Boissons</a>
+          <a href="/app">App</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <h1>Generer un QR boisson</h1>
+        <p>Un seul clic pour afficher un nouveau QR code de boisson.</p>
+      </section>
+
+      <section class="card">
+        {% if isGen %}
+        <img src="{{ link }}" alt="Boisson QR Code" />
+        {% else %}
+        <p>Appuyez sur le bouton pour generer un QR code.</p>
+        {% endif %}
+
+        <form action="/get_boisson_image" method="POST">
+          <button class="btn" type="submit">Generer maintenant</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

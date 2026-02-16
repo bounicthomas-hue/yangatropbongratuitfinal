@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR App</title>
+    <link rel="icon" href="{{ url_for('static', filename='images.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../static/app.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='apple-touch-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='apple-touch-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="167x167" href="{{ url_for('static', filename='apple-touch-icon-167x167.png') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-bar">
+        <a class="brand" href="/">
+          <span>Basic-Fit</span>
+          <small>QR App</small>
+        </a>
+        <div class="nav-links">
+          <a href="/">Accueil</a>
+          <a href="/history">Historique</a>
+          <a href="/get_boisson_image">Boissons</a>
+          <a href="/app">App</a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <div>
+          <h1>Generateur QR App</h1>
+          <p>Entrez le numero de carte pour generer un QR code app instantane.</p>
+        </div>
+        <div class="card">
+          <div class="input-row">
+            <input type="text" id="success" class="input-field" placeholder="Numero de carte" aria-label="Numero de Carte">
+            <button id="generateBtn" class="btn" type="button">Generer</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card qr-block" id="qrCodeContainer" style="display: none;">
+        <h3>Votre QR code</h3>
+        <img id="qrCodeImage" src="" alt="QR code app">
+      </section>
+    </main>
+
+    <script>
+      function generateQRCodeLink() {
+        var temp = document.getElementById("success").value;
+        const baseURL = "https://basic-fit-qr-code-generator.herokuapp.com/create-qr-code?data=";
+        const baseText = "GM2:" + temp + ":BPZ:";
+        const endText = ":95A5CAF2";
+        let randomPart = Date.now();
+        const finish = baseText + randomPart + endText;
+        return baseURL + finish;
+      }
+
+      document.getElementById("generateBtn").addEventListener("click", () => {
+        const qrCodeLink = generateQRCodeLink();
+        const qrCodeImage = document.getElementById("qrCodeImage");
+        qrCodeImage.src = qrCodeLink;
+        document.getElementById("qrCodeContainer").style.display = "grid";
+      });
+    </script>
+  </body>
+</html>
